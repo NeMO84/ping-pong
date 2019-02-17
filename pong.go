@@ -22,10 +22,13 @@ func main() {
 	} else {
 		port = PORT
 	}
-	port = fmt.Sprintf("localhost:%s", port)
+	port = fmt.Sprintf("0.0.0.0:%s", port)
 
 	fmt.Printf("Now serving on %s....", port)
-	http.ListenAndServe(port, nil)
+	err := http.ListenAndServe(port, nil)
+	if err != nil {
+		fmt.Printf("Failed to start server: %s", err)
+	}
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
